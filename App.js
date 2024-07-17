@@ -9,7 +9,11 @@ export default function App() {
 
   const [task, setTask] = useState();
 
-  const [taskItems, setTaskItems] = useState([]);
+  const [taskItems, setTaskItems] = useState([
+    { text: "Task 1", isCompleted: false },
+    { text: "Task 2", isCompleted: false },
+    // Add more tasks as needed
+  ]);
 
   const loadTasks = async () => {
     try {
@@ -36,16 +40,16 @@ export default function App() {
 
   const handelAddTask = () => {
     Keyboard.dismiss();
-    setTaskItems([...taskItems, task]);
+    const newTask = { text: task, isCompleted: false }; // Create a task object
+    setTaskItems([...taskItems, newTask]);
     setTask(null);
-  }
+  };
   
   const completeTask = (index) => {
     let itemsCopy = [...taskItems];
-    itemsCopy.splice(index, 1);
+    itemsCopy[index].isCompleted = !itemsCopy[index].isCompleted;
     setTaskItems(itemsCopy);
-    saveTasks(itemsCopy); 
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -58,17 +62,10 @@ export default function App() {
           {
             taskItems.map((item, index) => {
               return (
-                <TouchableOpacity 
-                key={index} 
-                onPress={() => completeTask(index)}>
-
-                <Task key={index} text={item}/>
+                <TouchableOpacity key={index} onPress={() => completeTask(index)}>
+                  <Task text={item.text} isCompleted={item.isCompleted} />
                 </TouchableOpacity>
-              )
-
-
-         
-              
+              );
             })
           }
         </View>
