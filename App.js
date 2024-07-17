@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
+import React, { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { Keyboard,KeyboardAvoidingView, StyleSheet, Text, TextInput, View ,Platform, TouchableOpacity} from 'react-native';
 import Task from './components/task';
 
@@ -9,6 +10,29 @@ export default function App() {
   const [task, setTask] = useState();
 
   const [taskItems, setTaskItems] = useState([]);
+
+  const loadTasks = async () => {
+    try {
+      const storedTasks = await AsyncStorage.getItem('tasks');
+      if (storedTasks) setTaskItems(JSON.parse(storedTasks));
+    } catch (error) {
+      console.error('Failed to load tasks.', error);
+    }
+  };
+
+  // Save tasks to AsyncStorage
+  const saveTasks = async (tasks) => {
+    try {
+      const stringifyTasks = JSON.stringify(tasks);
+      await AsyncStorage.setItem('tasks', stringifyTasks);
+    } catch (error) {
+      console.error('Failed to save tasks.', error);
+    }
+  };
+
+  useEffect(() => {
+    loadTasks();
+  }, []);
 
   const handelAddTask = () => {
     Keyboard.dismiss();
@@ -20,6 +44,7 @@ export default function App() {
     let itemsCopy = [...taskItems];
     itemsCopy.splice(index, 1);
     setTaskItems(itemsCopy);
+    saveTasks(itemsCopy); 
   }
 
   return (
