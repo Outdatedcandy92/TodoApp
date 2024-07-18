@@ -11,7 +11,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-mongoose.connect(").then( ()=>{
+mongoose.connect("mongodb+srv://Outdatedcandy92:j0XuhIndo7i0f2Zd@habit.1r9ziri.mongodb.net/?retryWrites=true&w=majority&appName=Habit").then( ()=>{
     console.log("connected to database");
 
 }).catch((error)=>{
