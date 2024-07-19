@@ -4,7 +4,6 @@ import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import axios from "axios";
-import { set } from "mongoose";
 
 
 const create = () => {
@@ -25,11 +24,11 @@ const create = () => {
       const habitDetials = {
         title: "title",
         color: selectedColor,
-        repeatMode: "Daily",
+        repeatMode: "daily",
         reminder: true,
       };
 
-      const response = await axios.post("http://localhost:3000/habit", habitDetials);
+      const response = await axios.post("http://localhost:3000/habits", habitDetials);
       if(Response.status === 200){
         setTitle("");
         Alert.alert("Habit Created");
@@ -106,7 +105,9 @@ const create = () => {
       </View>
 
 
-      <Pressable style={{ marginTop: 25, backgroundColor: "#00428c", padding: 10, borderRadius: 8 }}>
+      <Pressable
+      onPress={addHabit}
+      style={{ marginTop: 25, backgroundColor: "#00428c", padding: 10, borderRadius: 8 }}>
         <Text style={{ textAlign: "center", color: "white", fontWeight: "bold" }}>SAVE</Text>
       </Pressable>
     </View>

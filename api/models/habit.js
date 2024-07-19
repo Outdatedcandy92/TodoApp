@@ -1,34 +1,33 @@
-const moongooes = require('mongoose');
+const mongoose = require("mongoose");
 
-const habitScheme = new mongoose.Schema({
+const habitSchema = new mongoose.Schema({
     title:{
-        type: String,
-        required: true
+        type:String,
+        required:true
     },
     color:{
-        type: String,
-        required: true
+        type:String,
+        required:true,
     },
-    repeat:{
-        type: String,
-        enum["daily", "weekly"],
-        default: "daily",
+    repeatMode:{
+        type:String,
+        enum:["daily","weekly"],
+        default:"daily"
     },
     reminder:{
-        type: Boolean,
-        default: false
+        type:Boolean,
+        default:false,
     },
     completed:{
-        type: Object,
+        type:Object,
         default:{}
     },
     createdAt:{
-        type: Date,
-        default: Date.now
+        type:Date,
+        default:Date.now
     }
-    
 });
 
-const Habit = mongoose.model('Habit', habitScheme);
+const Habit = mongoose.model("Habit",habitSchema);
 
-module.exports = Habit;
+module.exports = Habit

@@ -26,9 +26,9 @@ app.listen(port, () => {
 
 //endpoint for creating a habit
 
-const Habit = require('./models/habit');
+const Habit = require("./models/habit");
 
-app.post("/habit", async (req, res) => {
+app.post("/habits", async (req, res) => {
     try {
 
         const {title, color, repeat, reminder} = req.body;
