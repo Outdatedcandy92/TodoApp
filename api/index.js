@@ -21,3 +21,32 @@ mongoose.connect("mongodb+srv://Outdatedcandy92:j0XuhIndo7i0f2Zd@habit.1r9ziri.m
 app.listen(port, () => {
     console.log(`Server started on port: ${port}`);
 });
+
+
+
+//endpoint for creating a habit
+
+const Habit = require('./models/habit');
+
+app.post("/habit", async (req, res) => {
+    try {
+
+        const {title, color, repeat, reminder} = req.body;
+
+        const newHabit = new Habit({
+            title,
+            color,
+            repeat,
+            reminder
+        });
+
+
+        const savedHabit = await newHabit.save();
+        res.status(200).json(savedHabit);
+        
+
+    } catch (error) {
+        res.status(500).json({error: "error"});
+        
+    }
+})
