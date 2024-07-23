@@ -21,23 +21,27 @@ const create = () => {
   const [title,setTitle] = useState("");
   async function addHabit() {
     try {
-      const habitDetials = {
+      const habitDetails = {
         title: "title",
         color: selectedColor,
         repeatMode: "daily",
         reminder: true,
       };
 
-      const response = await axios.post("http://localhost:3000/habits", habitDetials);
-      if(Response.status === 200){
+      const response = await axios.post(
+        "https://192.168.2.14:3000/habits",
+        habitDetails
+      );
+
+      if (response.status === 200) {
         setTitle("");
-        Alert.alert("Habit Created");
-      } else {
-        console.log("Error", response);
+        Alert.alert("Habit added succesfully", "Enjoy Practising");
       }
+
+      console.log("habit added", response);
     } catch (error) {
-      console.log("error", error);
-      
+      console.log("error adding a habit", error);
+    
     }
   }
 
